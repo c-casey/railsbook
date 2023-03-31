@@ -7,4 +7,8 @@ class Friendship < ApplicationRecord
     case2 = !Friendship.where(user_id: id2, friend_id: id1, confirmed: true).empty?
     case1 || case2
   end
+
+  def confirm
+    update(confirmed: true)
+  end
 end

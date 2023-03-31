@@ -24,4 +24,8 @@ class User < ApplicationRecord
   def request_friendship(user)
     requested_friends.create(friend_id: user.id)
   end
+
+  def accept_friendship(friend_request)
+    friend_request.confirm
+  end
 end
