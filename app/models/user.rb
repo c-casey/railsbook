@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
+  has_many :sent_notifications, class_name: "Notification", foreign_key: "sender_id"
+  has_many :received_notifications, class_name: "Notification", foreign_key: "receiver_id"
 
   def friends
     friend_requesters = Friendship.where(user_id: id, confirmed: true).pluck(:friend_id)
