@@ -5,6 +5,7 @@ class CreateNotifications < ActiveRecord::Migration[7.0]
       t.references :receiver, null: false, foreign_key: { to_table: :users }
       t.string :type
       t.string :link
+      t.boolean :read, default: false
 
       t.timestamps
     end
