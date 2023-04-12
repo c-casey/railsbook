@@ -11,6 +11,46 @@
   </head>
 
   <body>
+    <nav class="navbar" role="navigation" data-controller="navbar" data-navbar-change-class="is-active">
+      <div class="navbar-brand">
+        <div>RB</div>
+        <a role="button" class="navbar-burger" data-action="click->navbar#toggleBurger" data-navbar-target="burger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" data-navbar-target="burger">
+        <div class="navbar-start">
+        </div>
+
+        <div class="navbar-end">
+          <% if current_user %>
+            <div class="navbar-item has-dropdown" data-navbar-target="dropdown">
+              <div class="navbar-link" data-action="click->navbar#toggleDropdown">Notifications</div>
+              <div class="navbar-dropdown is-right">
+                <% if current_user.received_notifications %>
+                  <div class="navbar-item">
+                    <%= render current_user.received_notifications %>
+                  </div>
+                <% else %>
+                  <div class="navbar-item">You have no new notifications.</div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="navbar-item">
+            <div class="buttons">
+              <% if current_user %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-link" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-title">
+      <p> <%= link_to(friend_request_notification.sender.name, user_path(friend_request_notification.sender)) %> added you!</p>
+      <p class="is-right"><%= friend_request_notification.created_at %></p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="card-footer-item">
+      <a href="#">Accept</a>
+    </div>
+    <div class="card-footer-item">
+      <a href="#">Reject</a>
+    </div>
+  </div>
+</div>
