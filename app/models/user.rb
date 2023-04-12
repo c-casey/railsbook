@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :requested_friends, class_name: "Friendship"
   has_many :friend_requests, -> { where confirmed: false }, class_name: "Friendship", foreign_key: "friend_id"
-  has_many :posts
+  has_many :posts, foreign_key: "author_id"
   has_many :comments
   has_many :likes
   has_many :sent_notifications, class_name: "Notification", foreign_key: "sender_id"
