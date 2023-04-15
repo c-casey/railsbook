@@ -1,9 +1,13 @@
 class FriendRequestNotification < Notification
-  def self.create_and_send(friendship)
-    super(sender: friendship.user,
-          receiver: friendship.friend,
-          link: friendship.id,
-          type: self)
+  validates :link, presence: true
+
+  def self.discard_for(friendship)
+    notification = find_by(link: friendship.id)
+    notification&.destroy
+  end
+
+  def reference
+    Friendship.find(link)
   end
 
   def to_partial_path

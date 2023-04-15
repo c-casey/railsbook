@@ -2,15 +2,19 @@
   <div class="card-header">
     <div class="card-header-title">
       <p> <%= link_to(friend_request_notification.sender.name, user_path(friend_request_notification.sender)) %> added you!</p>
-      <p class="is-right"><%= friend_request_notification.created_at %></p>
     </div>
   </div>
   <div class="card-footer">
-    <a class="card-footer-item">
-      Accept
-    </a>
-    <a class="card-footer-item">
-      Reject
-    </a>
+    <div class="card-footer-item">
+      <%= form_with model: friend_request_notification.reference, method: :patch do |accept_form| %>
+        <%= accept_form.hidden_field :friend_id, value: friend_request_notification.sender.id %>
+        <%= accept_form.submit "Accept", class: "button is-link" %>
+      <% end %>
+    </div>
+    <div class="card-footer-item">
+      <%= form_with model: friend_request_notification.reference, method: :delete do |del_form| %>
+        <%= del_form.submit "Decline", class: "button is-link" %>
+      <% end %>
+    </div>
   </div>
 </div>

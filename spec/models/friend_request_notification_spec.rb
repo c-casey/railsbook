@@ -1,18 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe FriendRequestNotification, type: :model do
-  describe ".create_and_send" do
+  describe ".discard_for" do
     let(:friendship) { FactoryBot.create(:friendship) }
-    subject(:notification) { described_class.create_and_send(friendship) }
 
-    it "creates the appropriate notification type" do
-      expect(notification).to be_a(FriendRequestNotification)
-    end
-
-    it "makes accessible the relevant friendship" do
-      friendship = Friendship.find(notification.link)
-      user_identity_p = friendship.user == notification.sender
-      expect(user_identity_p).to be_truthy
+    it "deletes appropriate notification" do
+      described_class.create(sender: friendship.user,
+                             receiver: friendship.friend,
+                             link: friendship.id)
+      described_class.discard_for(friendship)
+      notification_exists = described_class.exists?(link: friendship.id)
+      expect(notification_exists).to be_falsey
     end
   end
 end
