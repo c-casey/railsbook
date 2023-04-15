@@ -29,13 +29,4 @@ RSpec.describe Friendship, type: :model do
       expect(friendship.confirmed).to be_truthy
     end
   end
-
-  describe "#send_notification" do
-    subject(:friendship) { FactoryBot.build(:friendship) }
-
-    it "sends notification to recipient" do
-      expect(FriendRequestNotification).to receive("create_and_send").with(friendship)
-      friendship.send_notification
-    end
-  end
 end

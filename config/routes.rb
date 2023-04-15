@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     resources :comments
     resources :likes
   end
+
+  resources :notifications, only: [:index]
+
+  resources :friendships, only: [:index, :create, :update, :destroy]
 end

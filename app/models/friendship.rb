@@ -1,8 +1,9 @@
 class Friendship < ApplicationRecord
+  validates :user, presence: true
+  validates :friend, presence: true
+
   belongs_to :user
   belongs_to :friend, class_name: "User"
-
-  after_create :send_notification
 
   def self.confirmed?(id1, id2)
     case1 = !Friendship.where(user_id: id1, friend_id: id2, confirmed: true).empty?
@@ -10,11 +11,16 @@ class Friendship < ApplicationRecord
     case1 || case2
   end
 
-  def confirm
-    update(confirmed: true)
+  def self.locate_friendship(id1, id2)
+    Friendship.find_by(user_id: id1, friend_id: id2) ||
+      Friendship.find_by(user_id: id2, friend_id: id1)
   end
 
-  def send_notification
-    FriendRequestNotification.create_and_send(self)
+  def other_user(current_user)
+    if user == current_user
+      friend
+    else
+      user
+    end
   end
 end
