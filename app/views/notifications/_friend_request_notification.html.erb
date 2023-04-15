@@ -8,12 +8,12 @@
     <div class="card-footer-item">
       <%= form_with model: friend_request_notification.reference, method: :patch do |accept_form| %>
         <%= accept_form.hidden_field :friend_id, value: friend_request_notification.sender.id %>
-        <%= accept_form.submit "Accept", class: "button is-link" %>
+        <%= accept_form.submit "Accept", class: "button is-success" %>
       <% end %>
     </div>
     <div class="card-footer-item">
       <%= form_with model: friend_request_notification.reference, method: :delete do |del_form| %>
-        <%= del_form.submit "Decline", class: "button is-link" %>
+        <%= del_form.submit "Decline", class: "button is-danger" %>
       <% end %>
     </div>
   </div>

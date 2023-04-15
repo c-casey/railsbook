@@ -8,24 +8,24 @@
       <div class="media-right">
         <% if current_user.friends_with?(@user) %>
           <%= form_with model: @friendship, method: :delete do |del_form| %>
-            <%= del_form.submit "Remove Friend", class: "button is-link" %>
+            <%= del_form.submit "Remove Friend", class: "button is-danger" %>
           <% end %>
         <% elsif current_user.friend_requests.find_by(user: @user) %>
           <%= form_with model: @friendship do |accept_form| %>
             <%= accept_form.hidden_field :friend_id, value: @user.id %>
-            <%= accept_form.submit "Accept Friend Request", class: "button is-link" %>
+            <%= accept_form.submit "Accept Friend Request", class: "button is-success" %>
           <% end %>
           <%= form_with model: @friendship, method: :delete do |rej_form| %>
-            <%= rej_form.submit "Decline Friend Request", class: "button is-link" %>
+            <%= rej_form.submit "Decline Friend Request", class: "button is-danger" %>
           <% end %>
         <% elsif @user.friend_requests.find_by(user: current_user) %>
           <%= form_with model: @friendship, method: :delete do |cancel_form| %>
-            <%= cancel_form.submit "Cancel Friend Request", class: "button is-link" %>
+            <%= cancel_form.submit "Cancel Friend Request", class: "button is-primary is-outlined" %>
           <% end %>
         <% else %>
           <%= form_with model: @friendship do |add_form| %>
             <%= add_form.hidden_field :friend_id, value: @user.id %>
-            <%= add_form.submit "Add Friend", class: "button is-link" %>
+            <%= add_form.submit "Add Friend", class: "button is-primary" %>
           <% end %>
         <% end %>
       </div>
