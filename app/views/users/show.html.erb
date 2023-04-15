@@ -15,6 +15,9 @@
             <%= accept_form.hidden_field :friend_id, value: @user.id %>
             <%= accept_form.submit "Accept Friend Request", class: "button is-link" %>
           <% end %>
+          <%= form_with model: @friendship, method: :delete do |rej_form| %>
+            <%= rej_form.submit "Decline Friend Request", class: "button is-link" %>
+          <% end %>
         <% elsif @user.friend_requests.find_by(user: current_user) %>
           <%= form_with model: @friendship, method: :delete do |cancel_form| %>
             <%= cancel_form.submit "Cancel Friend Request", class: "button is-link" %>
