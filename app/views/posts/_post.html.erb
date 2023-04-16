@@ -33,11 +33,13 @@
         </div>
         <div class="dropdown-menu">
           <div class="dropdown-content">
-            <a class="dropdown-item">Edit</a>
-            <hr class="dropdown-divider">
-            <%= link_to "Delete", post_path(post),
-             class: "dropdown-item",
-             data: { turbo_method: :delete, turbo_confirm: "Really delete this post?" } %>
+            <% if post.author == current_user %>
+              <a class="dropdown-item">Edit</a>
+              <hr class="dropdown-divider">
+              <%= link_to "Delete", post_path(post),
+               class: "dropdown-item",
+               data: { turbo_method: :delete, turbo_confirm: "Really delete this post?" } %>
+            <% end %>
           </div>
         </div>
       </div>
