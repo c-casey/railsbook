@@ -33,6 +33,8 @@
     <div class="content">
       <p>bio stuff</p>
     </div>
-    <%= render @posts %>
+    <%= turbo_frame_tag "posts" do %>
+      <%= render @posts %>
+    <% end %>
   </div>
 </div>

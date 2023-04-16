@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: "User"
 
-  has_many :comments
-  has_many :likes
+  has_many :comments, foreign_key: "parent_id", dependent: :destroy
+  has_many :likes, foreign_key: "parent_id", dependent: :destroy
 
   scope :ordered, -> { order(created_at: :desc) }
 
