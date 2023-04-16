@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
+  respond_to :html, :turbo_stream
+
   def index
-    @posts = Post.all
+    @friends = current_user.friends
+    @posts = Post.relevant(current_user).ordered
+    @post = current_user.posts.build
   end
 
   def show
@@ -13,8 +17,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+
     if @post.save
-      redirect_to @post
+      respond_to do |format|
+        format.html { redirect_to posts_path }
+        format.turbo_stream
+      end
     else
       render :new, status: :unprocessable_entity
     end

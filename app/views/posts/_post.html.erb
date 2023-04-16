@@ -1,0 +1,33 @@
+<div class="box">
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img alt="<%= post.author.name %>" src="">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>
+            <%= post.author.name %>
+          </strong> <small> <%= distance_of_time_in_words(post.created_at, Time.now) %> </small>
+          <br>
+          <%= post.content %>
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item">
+            <span class="is-small">like</span>
+          </a>
+          <a class="level-item">
+            <span class="is-small">comment</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="media-right">
+      <button class="delete"></button>
+    </div>
+  </article>
+</div>
