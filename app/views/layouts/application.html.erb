@@ -11,9 +11,14 @@
   </head>
 
   <body>
-    <nav class="navbar" role="navigation" data-controller="navbar" data-navbar-change-class="is-active">
+    <nav class="navbar is-primary" role="navigation" data-controller="navbar" data-navbar-change-class="is-active">
       <div class="navbar-brand">
-        <div>RB</div>
+        <a class="navbar-item is-tab" href=<%= root_path %>>
+          Home
+        </a>
+        <a class="navbar-item is-tab" href=<%= user_path(current_user) %>>
+          My Profile
+        </a>
         <a role="button" class="navbar-burger" data-action="click->navbar#toggleBurger" data-navbar-target="burger">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -44,7 +49,7 @@
           <div class="navbar-item">
             <div class="buttons">
               <% if current_user %>
-                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-link" %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-danger" %>
               <% end %>
             </div>
           </div>
