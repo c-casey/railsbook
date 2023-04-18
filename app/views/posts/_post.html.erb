@@ -34,7 +34,8 @@
           </div>
           <div class="dropdown-menu">
             <div class="dropdown-content">
-              <a class="dropdown-item">Permalink</a>
+              <%= link_to "Permalink", post_path(post), class: "dropdown-item",
+               data: { turbo: false } %>
               <% if post.author == current_user %>
                 <!-- <a class="dropdown-item">Edit</a> -->
                 <%= link_to "Edit", edit_post_path(post), class: "dropdown-item" %>
