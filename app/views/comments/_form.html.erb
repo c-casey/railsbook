@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "comment_form", class: "container" do %>
+  <%= form_with model: @comment, url: post_comments_path(@post) , class: "content",
+   data: { controller: "submission", action: "turbo:submit-end->submission#clear" } do |comment_form| %>
+    <%= comment_form.text_area :content, class: "textarea has-fixed-size", placeholder: "Write a comment..." %>
+    <%= comment_form.submit "Add Comment", class: "button is-link" %>
+  <% end %>
+<% end %>

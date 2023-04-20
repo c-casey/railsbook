@@ -1,5 +1,5 @@
 <%= form_with model: @post,
-   data: { controller: "submission", action: "turbo:submit-end->submission#clear" }  do |post_form| %>
+   data: { controller: "submission", action: "turbo:submit-end->submission#clear" } do |post_form| %>
   <%= post_form.text_area :content,
      class: "textarea has-fixed-size",
      placeholder: "Share what you're thinking",

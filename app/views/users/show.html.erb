@@ -1,14 +1,21 @@
-
 <div class="card">
   <div class="card-content">
     <div class="media">
       <div class="media-left">
-        <p><%= @user.name %></p>
+        <figure class="image is-128x128">
+          <img alt="<%= @user.name %>" src="">
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title"><%= @user.name %></p>
+        <p class="subtitle">
+          <p>bio stuff</p>
+        </p>
       </div>
       <div class="media-right">
         <% if current_user.friends_with?(@user) %>
           <%= form_with model: @friendship, method: :delete do |del_form| %>
-            <%= del_form.submit "Remove Friend", class: "button is-danger" %>
+            <%= del_form.submit "Remove Friend", class: "button is-danger is-outlined" %>
           <% end %>
         <% elsif current_user.friend_requests.find_by(user: @user) %>
           <%= form_with model: @friendship do |accept_form| %>
@@ -16,7 +23,7 @@
             <%= accept_form.submit "Accept Friend Request", class: "button is-success" %>
           <% end %>
           <%= form_with model: @friendship, method: :delete do |rej_form| %>
-            <%= rej_form.submit "Decline Friend Request", class: "button is-danger" %>
+            <%= rej_form.submit "Decline Friend Request", class: "button is-danger is-outlined" %>
           <% end %>
         <% elsif @user.friend_requests.find_by(user: current_user) %>
           <%= form_with model: @friendship, method: :delete do |cancel_form| %>
@@ -30,11 +37,10 @@
         <% end %>
       </div>
     </div>
-    <div class="content">
-      <p>bio stuff</p>
-    </div>
-    <%= turbo_frame_tag "posts" do %>
-      <%= render @posts %>
-    <% end %>
   </div>
+</div>
+<div class="container is-max-desktop">
+  <%= turbo_frame_tag "posts" do %>
+    <%= render @posts %>
+  <% end %>
 </div>

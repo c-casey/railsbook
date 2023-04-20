@@ -2,6 +2,8 @@
   <%= turbo_frame_tag "new_post", src: new_post_path %>
 </div>
 
-<%= turbo_frame_tag "posts" do %>
-  <%= render @posts %>
-<% end %>
+<div class="container is-max-desktop">
+  <%= turbo_frame_tag "posts" do %>
+    <%= render @posts %>
+  <% end %>
+</div>

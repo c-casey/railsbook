@@ -22,7 +22,9 @@
               <%= render select_like_form(post), post: post %>
             </span>
             <a class="level-item">
-              <span class="is-small">comment</span>
+              <span class="is-small">
+                <%= button_to comments_button_text(post), post_comments_path(post.id), class: "button" %>
+              </span>
             </a>
           </div>
         </nav>
@@ -47,5 +49,10 @@
         </div>
       </div>
     </article>
+    <%= turbo_frame_tag "comments", class: "container" do %>
+      <%= render post.comments %>
+    <% end %>
+    <%= turbo_frame_tag "comment_form", src: new_post_comment_path(post.id), class: "container" do %>
+    <% end %>
   </div>
 <% end %>
