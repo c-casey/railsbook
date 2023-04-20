@@ -1,4 +1,6 @@
 class Friendship < ApplicationRecord
+  # confirmed:boolean
+
   validates :user, presence: true
   validates :friend, presence: true
 

@@ -1,4 +1,6 @@
 class FriendRequestNotification < Notification
+  # type:string, link:string, read:boolean [all provided by Notification]
+
   validates :link, presence: true
 
   def self.discard_for(friendship)
