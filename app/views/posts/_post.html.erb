@@ -18,9 +18,9 @@
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
-            <a class="level-item">
-              <span class="is-small">like</span>
-            </a>
+            <span class="level-item is-small">
+              <%= render select_like_form(post), post: post %>
+            </span>
             <a class="level-item">
               <span class="is-small">comment</span>
             </a>
@@ -37,7 +37,6 @@
               <%= link_to "Permalink", post_path(post), class: "dropdown-item",
                data: { turbo: false } %>
               <% if post.author == current_user %>
-                <!-- <a class="dropdown-item">Edit</a> -->
                 <%= link_to "Edit", edit_post_path(post), class: "dropdown-item" %>
                 <hr class="dropdown-divider">
                 <%= link_to "Delete", post_path(post), class: "dropdown-item",

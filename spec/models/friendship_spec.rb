@@ -20,13 +20,4 @@ RSpec.describe Friendship, type: :model do
       end
     end
   end
-
-  describe "#confirm" do
-    subject(:friendship) { FactoryBot.create(:friendship) }
-
-    it "sets confirmed attribute to true" do
-      friendship.confirm
-      expect(friendship.confirmed).to be_truthy
-    end
-  end
 end

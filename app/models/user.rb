@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :friend_requests, -> { where confirmed: false }, class_name: "Friendship", foreign_key: "friend_id"
   has_many :posts, foreign_key: "author_id"
   has_many :comments
-  has_many :likes
+  has_many :likes, foreign_key: "author_id"
   has_many :sent_notifications, class_name: "Notification", foreign_key: "sender_id"
   has_many :received_notifications, class_name: "Notification", foreign_key: "receiver_id"
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :posts, shallow: true do
     resources :comments
-    resources :likes
+    resources :likes, only: [:create, :destroy]
   end
 
   resources :notifications, only: [:index]

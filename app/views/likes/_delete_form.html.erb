@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "post_likes_#{post.id}" do %>
+  <%= button_to like_button_text(post), delete_like_path(post), method: :delete %>
+<% end %>
