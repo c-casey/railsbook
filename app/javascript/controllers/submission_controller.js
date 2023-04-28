@@ -5,6 +5,10 @@ export default class extends Controller {
   static targets = [ "button", "textarea" ]
   static classes = [ "disabled" ]
 
+  buttonTargetConnected() {
+    this.disableButton()
+  }
+
   clear() {
     this.element.reset()
   }

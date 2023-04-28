@@ -1,7 +1,7 @@
-<%= turbo_frame_tag "comment_form", class: "container" do %>
-  <%= form_with model: @comment, url: post_comments_path(@post) , class: "content",
+<%= turbo_frame_tag "post_#{post.id}_comment_form", class: "container" do %>
+  <%= form_with model: comment, url: post_comments_path(post) , class: "content",
    data: { controller: "submission", action: "turbo:submit-end->submission#clear input->submission#toggleButton" } do |comment_form| %>
     <%= comment_form.text_area :content, class: "textarea has-fixed-size", placeholder: "Write a comment...", data: { submission_target: "textarea" } %>
-    <%= comment_form.submit "Add Comment", class: "button is-link", disabled: true, data: { submission_target: "button" } %>
+    <%= comment_form.submit "Add Comment", class: "button is-link", disabled: false, data: { submission_target: "button" } %>
   <% end %>
 <% end %>

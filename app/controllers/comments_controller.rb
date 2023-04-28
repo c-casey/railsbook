@@ -1,4 +1,9 @@
 class CommentsController < ApplicationController
+  def index
+    @post = Post.find(params[:post_id])
+    @comments = @post.comments.includes([:author])
+  end
+
   def new
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build
@@ -9,7 +14,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.author = current_user
 
-    if @comment.save!
+    if @comment.save
       respond_to do |format|
         format.html { redirect_to @post, status: :created }
         format.turbo_stream

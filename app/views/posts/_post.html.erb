@@ -49,10 +49,9 @@
         </div>
       </div>
     </article>
-    <%= turbo_frame_tag "comments", class: "container" do %>
-      <%= render post.comments %>
+    <%= turbo_frame_tag "post_#{post.id}_comments", class: "container" do %>
+      <%= render comments %>
     <% end %>
-    <%= turbo_frame_tag "comment_form", src: new_post_comment_path(post.id), class: "container" do %>
-    <% end %>
+    <%= turbo_frame_tag "post_#{post.id}_comment_form", src: new_post_comment_path(post.id), class: "container" %>
   </div>
 <% end %>

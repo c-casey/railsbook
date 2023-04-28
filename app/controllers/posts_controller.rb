@@ -1,12 +1,18 @@
 class PostsController < ApplicationController
   def index
     @friends = current_user.friends
-    @posts = Post.relevant(current_user).ordered
+    @posts = Post.relevant(current_user).ordered.includes([:author, { comments: [:author] }])
     @post = current_user.posts.build
   end
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.includes([:author])
+
+    # respond_to do |format|
+    #   format.html
+    #   format.turbo_stream
+    # end
   end
 
   def new
@@ -18,7 +24,7 @@ class PostsController < ApplicationController
 
     if @post.save
       respond_to do |format|
-        format.html { redirect_to posts_path }
+        format.html { redirect_to @post, status: :see_other }
         format.turbo_stream
       end
     else

@@ -41,6 +41,8 @@
 </div>
 <div class="container is-max-desktop">
   <%= turbo_frame_tag "posts" do %>
-    <%= render @posts %>
+    <% @posts.each do |post| %>
+      <%= render post, comments: post.comments %>
+    <% end %>
   <% end %>
 </div>

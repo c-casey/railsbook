@@ -3,7 +3,10 @@
 </div>
 
 <div class="container is-max-desktop">
-  <%= turbo_frame_tag "posts" do %>
-    <%= render @posts %>
+  <%= turbo_frame_tag "post_#{@post.id}_comment_form" do %>
+    <%#= render @posts %>
+    <% @posts.each do |post| %>
+      <%= render post, comments: post.comments %>
+    <% end %>
   <% end %>
 </div>
