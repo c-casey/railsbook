@@ -75,6 +75,8 @@ group :development do
   # Enable Robe
   gem "pry"
   gem "webrick"
+
+  gem "bullet"
 end
 
 group :test do
