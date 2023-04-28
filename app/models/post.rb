@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: "User"
 
   has_many :comments, foreign_key: "parent_id", dependent: :destroy
-  has_many :likes, foreign_key: "parent_id", dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
 
   scope :ordered, -> { order(created_at: :desc) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_003809) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_231054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_003809) do
     t.bigint "parent_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count"
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
   end
@@ -36,12 +37,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_003809) do
 
   create_table "likes", force: :cascade do |t|
     t.bigint "author_id", null: false
-    t.bigint "parent_id", null: false
+    t.bigint "likeable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["author_id", "parent_id"], name: "index_likes_on_author_id_and_parent_id", unique: true
+    t.string "likeable_type"
+    t.index ["author_id", "likeable_id"], name: "index_likes_on_author_id_and_likeable_id", unique: true
     t.index ["author_id"], name: "index_likes_on_author_id"
-    t.index ["parent_id"], name: "index_likes_on_parent_id"
+    t.index ["likeable_id"], name: "index_likes_on_likeable_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -61,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_003809) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count"
     t.index ["author_id"], name: "index_posts_on_author_id"
   end
 
@@ -81,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_003809) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
-  add_foreign_key "likes", "posts", column: "parent_id"
+  add_foreign_key "likes", "posts", column: "likeable_id"
   add_foreign_key "likes", "users", column: "author_id"
   add_foreign_key "notifications", "users", column: "receiver_id"
   add_foreign_key "notifications", "users", column: "sender_id"
