@@ -6,13 +6,14 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
-    @comments = @post.comments.includes([:author])
+    @post = Post.find_by(id: params[:id])
 
-    # respond_to do |format|
-    #   format.html
-    #   format.turbo_stream
-    # end
+    if @post.present?
+      @comments = @post.comments.includes([:author])
+      render :show
+    else
+      render file: "#{Rails.root}/public/404.html", layout: true, status: :not_found
+    end
   end
 
   def new
@@ -21,6 +22,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    @new_post = current_user.posts.build
 
     if @post.save
       respond_to do |format|
