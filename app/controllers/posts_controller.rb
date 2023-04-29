@@ -40,7 +40,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.update(post_params)
-      redirect_to @post
+      respond_to do |format|
+        format.html { redirect_to @post, status: :see_other }
+        format.turbo_stream
+      end
     else
       render :edit, status: :unprocessable_entity
     end
