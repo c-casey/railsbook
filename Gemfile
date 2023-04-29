@@ -76,6 +76,8 @@ group :development do
   gem "pry"
   gem "webrick"
 
+  gem "pry-byebug"
+
   gem "bullet"
 end
 
