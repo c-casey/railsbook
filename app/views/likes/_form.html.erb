@@ -1,3 +1,9 @@
-<%= turbo_frame_tag "post_likes_#{post.id}" do %>
-  <%= button_to like_button_text(post), post_likes_path(post), class: "button" %>
+<%= turbo_frame_tag "#{likeable.class.to_s.downcase}_#{likeable.id}_like_form" do %>
+  <%= form_with url: polymorphic_path([likeable, Like]) do |f| %>
+    <%= f.hidden_field :likeable_id, value: likeable.id %>
+    <%= f.hidden_field :likeable_type, value: likeable.class %>
+    <%= f.submit like_button_text(likeable),
+     id: "#{likeable.class.to_s.downcase}_#{likeable.id}_like_button",
+     class: "button" %>
+  <% end %>
 <% end %>

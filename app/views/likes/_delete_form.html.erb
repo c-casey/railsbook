@@ -1,3 +1,3 @@
-<%= turbo_frame_tag "post_likes_#{post.id}" do %>
-  <%= button_to like_button_text(post), delete_like_path(post), method: :delete, class: "button is-success" %>
+<%= turbo_frame_tag "#{likeable.class.to_s.downcase}_#{likeable.id}_like_form" do %>
+  <%= button_to like_button_text(likeable), delete_like_path(likeable), method: :delete, id: "#{likeable.class.to_s.downcase}_#{likeable.id}_like_button", class: "button is-success" %>
 <% end %>

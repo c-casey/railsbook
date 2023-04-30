@@ -4,9 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show, :index]
 
-  resources :posts, shallow: true do
-    resources :comments
+  concern :likeable do
     resources :likes, only: [:create, :destroy]
+  end
+
+  resources :posts, concerns: :likeable, shallow: true do
+    resources :comments, concerns: :likeable
   end
 
   resources :notifications, only: [:index]
