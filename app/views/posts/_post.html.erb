@@ -1,11 +1,11 @@
 <%= turbo_frame_tag post, class: "box" do %>
   <div data-controller="navbar" data-navbar-change-class="is-active">
     <article class="media">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <img alt="<%= post.author.name %>" src="">
-        </p>
-      </figure>
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img alt="<%= post.author.name %>" src="<%= avatar_url(user: post.author, size: 64) %>">
+        </figure>
+      </div>
       <div class="media-content">
         <div class="content">
           <p>
