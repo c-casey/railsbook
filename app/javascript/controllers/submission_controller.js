@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="submission"
 export default class extends Controller {
   static targets = [ "button", "textarea" ]
-  static classes = [ "disabled" ]
 
   buttonTargetConnected() {
     this.disableButton()
