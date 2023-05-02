@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     @friends = current_user.friends
-    @posts = Post.relevant(current_user).ordered.includes([:author, { comments: [:author] }])
+    @posts = Post.relevant(current_user).ordered.includes(:author)
     @post = current_user.posts.build
   end
 
@@ -9,7 +9,6 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
 
     if @post.present?
-      @comments = @post.comments.includes([:author])
       render :show
     else
       render file: "#{Rails.root}/public/404.html", layout: true, status: :not_found
