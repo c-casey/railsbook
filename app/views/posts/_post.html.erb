@@ -21,11 +21,7 @@
             <span class="level-item is-small">
               <%= render select_like_form(post), likeable: post %>
             </span>
-            <a class="level-item">
-              <span class="is-small">
-                <%= button_to comments_button_text(post), post_comments_path(post.id), class: "button" %>
-              </span>
-            </a>
+            <%= button_to comments_button_text(post), post_comments_path(post.id), class: "button level-item" %>
           </div>
         </nav>
       </div>
