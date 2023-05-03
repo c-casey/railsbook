@@ -3,17 +3,30 @@
     <div class="media">
       <div class="media-left">
         <figure class="image is-128x128">
-          <img alt="<%= @user.name %>" src="">
+          <img alt="<%= @user.name %>" src="<%= avatar_url(user: @user, size: 128) %>">
         </figure>
       </div>
       <div class="media-content">
-        <p class="title"><%= @user.name %></p>
-        <p class="subtitle">
-          <p>bio stuff</p>
-        </p>
+        <%= turbo_frame_tag "user_#{@user.id}_edit" do %>
+          <p class="title"><%= @user.name %></p>
+          <p class="subtitle">
+            <%= @user.bio %>
+          </p>
+        <% end %>
       </div>
       <div class="media-right">
-        <% if current_user.friends_with?(@user) %>
+        <% if @user == current_user %>
+          <div class="dropdown is-right" data-controller="navbar" data-navbar-change-class="is-active" data-navbar-target="dropdown">
+            <div class="dropdown-trigger">
+              <button id="user_<%= @user.id %>_dropdown_button" class="button" data-action="navbar#toggleDropdown">:</button>
+            </div>
+            <div class="dropdown-menu">
+              <div class="dropdown-content">
+                <%= link_to "Edit Profile", edit_user_path(@user), class: "dropdown-item", data: { turbo_frame: "user_#{@user.id}_edit" } %>
+              </div>
+            </div>
+          </div>
+        <% elsif current_user.friends_with?(@user) %>
           <%= form_with model: @friendship, method: :delete do |del_form| %>
             <%= del_form.submit "Remove Friend", class: "button is-danger is-outlined" %>
           <% end %>

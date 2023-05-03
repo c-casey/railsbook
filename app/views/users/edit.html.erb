@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "user_#{@user.id}_edit" do %>
+  <%= form_with model: @user do |f| %>
+    <%= f.label :name, "Name: " %>
+    <%= f.text_field :name, class: "input" %>
+    <%= f.label :bio, "Bio: " %>
+    <%= f.text_area :bio, class: "textarea" %>
+    <%= f.submit "Update Profile", class: "button" %>
+  <% end %>
+<% end %>
