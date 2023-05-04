@@ -2,13 +2,23 @@
   <div class="card-content">
     <div class="media">
       <div class="media-left">
-        <figure class="image is-128x128">
-          <img alt="<%= user.name %>" src="<%= avatar_url(user: user, size: 128) %>">
-        </figure>
+        <% if local_assigns[:brief] %>
+          <figure class="image is-64x64">
+            <img alt="<%= user.name %>" src="<%= avatar_url(user: user, size: 64) %>">
+          </figure>
+        <% else %>
+          <figure class="image is-128x128">
+            <img alt="<%= user.name %>" src="<%= avatar_url(user: user, size: 128) %>">
+          </figure>
+        <% end %>
       </div>
       <div class="media-content">
         <%= turbo_frame_tag "user_#{user.id}_edit" do %>
-          <p class="title"><%= user.name %></p>
+          <% if local_assigns[:brief] %>
+            <p class="title"><%= link_to user.name, user_path(user), data: { turbo: false } %></p>
+          <% else %>
+            <p class="title"><%= user.name %></p>
+          <% end %>
           <p class="subtitle">
             <%= user.bio %>
           </p>

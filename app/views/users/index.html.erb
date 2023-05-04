@@ -1,3 +1,6 @@
 <% @users.each do |user| %>
-  <%= render partial: "overview", object: user, as: :user, locals: { friendship: locate_friendship(user) } %>
+  <%= render partial: "overview",
+             object: user,
+             as: :user,
+             locals: { brief: true, friendship: locate_friendship(user) } %>
 <% end %>

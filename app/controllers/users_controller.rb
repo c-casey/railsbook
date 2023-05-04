@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :validate_current_user, only: [:edit, :update]
 
   def index
-    @users = User.all
+    @users = User.all.order(:name)
   end
 
   def show
