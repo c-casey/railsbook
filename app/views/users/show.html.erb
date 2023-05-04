@@ -1,57 +1,7 @@
-<div class="card">
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-128x128">
-          <img alt="<%= @user.name %>" src="<%= avatar_url(user: @user, size: 128) %>">
-        </figure>
-      </div>
-      <div class="media-content">
-        <%= turbo_frame_tag "user_#{@user.id}_edit" do %>
-          <p class="title"><%= @user.name %></p>
-          <p class="subtitle">
-            <%= @user.bio %>
-          </p>
-        <% end %>
-      </div>
-      <div class="media-right">
-        <% if @user == current_user %>
-          <div class="dropdown is-right" data-controller="navbar" data-navbar-change-class="is-active" data-navbar-target="dropdown">
-            <div class="dropdown-trigger">
-              <button id="user_<%= @user.id %>_dropdown_button" class="button" data-action="navbar#toggleDropdown">:</button>
-            </div>
-            <div class="dropdown-menu">
-              <div class="dropdown-content">
-                <%= link_to "Edit Profile", edit_user_path(@user), class: "dropdown-item", data: { turbo_frame: "user_#{@user.id}_edit" } %>
-              </div>
-            </div>
-          </div>
-        <% elsif current_user.friends_with?(@user) %>
-          <%= form_with model: @friendship, method: :delete do |del_form| %>
-            <%= del_form.submit "Remove Friend", class: "button is-danger is-outlined" %>
-          <% end %>
-        <% elsif current_user.friend_requests.find_by(user: @user) %>
-          <%= form_with model: @friendship do |accept_form| %>
-            <%= accept_form.hidden_field :friend_id, value: @user.id %>
-            <%= accept_form.submit "Accept Friend Request", class: "button is-success" %>
-          <% end %>
-          <%= form_with model: @friendship, method: :delete do |rej_form| %>
-            <%= rej_form.submit "Decline Friend Request", class: "button is-danger is-outlined" %>
-          <% end %>
-        <% elsif @user.friend_requests.find_by(user: current_user) %>
-          <%= form_with model: @friendship, method: :delete do |cancel_form| %>
-            <%= cancel_form.submit "Cancel Friend Request", class: "button is-primary is-outlined" %>
-          <% end %>
-        <% else %>
-          <%= form_with model: @friendship do |add_form| %>
-            <%= add_form.hidden_field :friend_id, value: @user.id %>
-            <%= add_form.submit "Add Friend", class: "button is-primary" %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= turbo_frame_tag "user_#{@user.id}_overview" do %>
+  <%= render partial: "overview", locals: { user: @user, friendship: @friendship } %>
+<% end %>
+
 <div class="container is-max-desktop">
   <%= turbo_frame_tag "posts" do %>
     <% @posts.each do |post| %>
