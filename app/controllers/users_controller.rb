@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :validate_current_user, only: [:edit, :update]
 
+  def index
+    @users = User.all
+  end
+
   def show
     @user = User.find(params[:id])
     @friendship = Friendship.locate_friendship(current_user.id, @user.id) || Friendship.new

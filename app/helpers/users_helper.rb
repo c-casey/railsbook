@@ -6,4 +6,8 @@ module UsersHelper
     md5 = Digest::MD5.hexdigest(email)
     "https://www.gravatar.com/avatar/#{md5}?d=mp&s=#{size}"
   end
+
+  def locate_friendship(user)
+    Friendship.locate_friendship(current_user, user) || Friendship.new
+  end
 end
