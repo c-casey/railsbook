@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
   root "posts#index"
 
-  devise_for :users
-  resources :users, only: [:show, :index, :edit, :update]
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  resources :users, only: %i[show index edit update]
 
   concern :likeable do
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: %i[create destroy]
   end
 
   resources :posts, concerns: :likeable, shallow: true do
     resources :comments, concerns: :likeable
   end
 
-  resources :notifications, only: [:index]
+  resources :notifications, only: %i[index]
 
-  resources :friendships, only: [:index, :create, :update, :destroy]
+  resources :friendships, only: %i[index create update destroy]
 end

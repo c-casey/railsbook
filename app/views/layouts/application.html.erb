@@ -52,7 +52,7 @@
           <div class="navbar-item">
             <div class="buttons">
               <% if current_user %>
-                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-danger" %>
+                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "button is-danger" %>
               <% end %>
             </div>
           </div>
