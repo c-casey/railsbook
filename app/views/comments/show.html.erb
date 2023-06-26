@@ -1,0 +1,63 @@
+<%= turbo_frame_tag @post, class: "box" do %>
+  <div data-controller="navbar" data-navbar-change-class="is-active">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img alt="<%= @post.author.name %>" src="<%= avatar_url(user: @post.author, size: 64) %>">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>
+              <%= @post.author.name %>
+            </strong> <small> <%= distance_of_time_in_words(@post.created_at, Time.now) %> </small>
+            <br>
+            <%= @post.content %>
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <span class="level-item is-small">
+              <%= render select_like_form(@post), likeable: @post %>
+            </span>
+            <%= button_to comments_button_text(@post), post_comments_path(@post.id), class: "button level-item" %>
+          </div>
+        </nav>
+      </div>
+      <div class="media-right">
+        <div class="dropdown is-right" data-navbar-target="dropdown">
+          <div class="dropdown-trigger">
+            <button id="post_<%= @post.id %>_dropdown_button" class="button" data-action="navbar#toggleDropdown">:</button>
+          </div>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <%= link_to "Permalink", post_path(@post), class: "dropdown-item",
+               data: { turbo: false } %>
+              <% if @post.author == current_user %>
+                <%= link_to "Edit", edit_post_path(@post), class: "dropdown-item" %>
+                <hr class="dropdown-divider">
+                <%= link_to "Delete", post_path(@post), class: "dropdown-item",
+                 data: { turbo_method: :delete, turbo_confirm: "Really delete this post?" } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <% if @post.comments.count > 1 %>
+      <div id="comment_omission_notification" class="notification" style="margin-top: 24px">
+        <span>
+          <%= pluralize(@post.comments.count - 1, "comment") %> hidden.
+          <%= link_to "Show all",
+            post_path(@post),
+           data: { turbo: false } %>
+        </span>
+      </div>
+    <% end %>
+    <%= turbo_frame_tag "post_#{@post.id}_comments", class: "container" do %>
+      <%= render "comment", comment: @comment %>
+    <% end %>
+    <%= turbo_frame_tag "post_#{@post.id}_comment_form", src: new_post_comment_path(@post.id), class: "container" %>
+  </div>
+<% end %>
