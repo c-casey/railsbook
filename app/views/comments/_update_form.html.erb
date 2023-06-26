@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "comment_#{comment.id}_update_form", class: "container" do %>
+  <%= form_with model: comment, class: "content",
+   data: { controller: "submission", action: "turbo:submit-end->submission#clear input->submission#toggleButton" } do |comment_form| %>
+    <%= comment_form.text_area :content, id: "comment_#{comment.id}_update_field", class: "textarea has-fixed-size", placeholder: "Write a comment...", data: { submission_target: "textarea" } %>
+    <%= comment_form.submit "Update Comment", class: "button is-link", disabled: false, data: { submission_target: "button" } %>
+  <% end %>
+<% end %>
